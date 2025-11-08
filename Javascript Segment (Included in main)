@@ -1,0 +1,80 @@
+// visualizer.js
+// Sorting Algorithm Visualizer - Bubble Sort Implementation
+// Built with plain JavaScript for educational and interactive use
+
+const barsContainer = document.getElementById('bars');
+const generateBtn = document.getElementById('generate');
+const sortBtn = document.getElementById('sort');
+const sizeSelect = document.getElementById('size');
+const speedSlider = document.getElementById('speed');
+
+let delay = parseInt(speedSlider.value);
+let array = [];
+
+/**
+ * Generates a random array and renders visual bars.
+ * @param {number} size - The number of bars to generate.
+ */
+function generateBars(size = 20) {
+  array = [];
+  barsContainer.innerHTML = '';
+
+  for (let i = 0; i < size; i++) {
+    const value = Math.floor(Math.random() * 90) + 10;
+    array.push(value);
+
+    const bar = document.createElement('div');
+    bar.classList.add('bar');
+    bar.style.height = `${value * 3}px`;
+    barsContainer.appendChild(bar);
+  }
+}
+
+/**
+ * Performs Bubble Sort with visual animations.
+ */
+async function bubbleSort() {
+  const bars = document.querySelectorAll('.bar');
+  let n = array.length;
+
+  for (let i = 0; i < n - 1; i++) {
+    for (let j = 0; j < n - i - 1; j++) {
+      bars[j].classList.add('compare');
+      bars[j + 1].classList.add('compare');
+
+      await new Promise(resolve => setTimeout(resolve, delay));
+
+      if (array[j] > array[j + 1]) {
+        bars[j].classList.remove('compare');
+        bars[j + 1].classList.remove('compare');
+        bars[j].classList.add('swap');
+        bars[j + 1].classList.add('swap');
+
+        await new Promise(resolve => setTimeout(resolve, delay));
+
+        // Swap values
+        [array[j], array[j + 1]] = [array[j + 1], array[j]];
+        bars[j].style.height = `${array[j] * 3}px`;
+        bars[j + 1].style.height = `${array[j + 1] * 3}px`;
+
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+
+      // Reset colors
+      bars[j].classList.remove('compare', 'swap');
+      bars[j + 1].classList.remove('compare', 'swap');
+    }
+    bars[n - i - 1].style.background = '#22c55e'; // Mark sorted
+  }
+
+  bars[0].style.background = '#22c55e'; // Final element sorted
+}
+
+// Event listeners
+generateBtn.addEventListener('click', () => generateBars(parseInt(sizeSelect.value)));
+sortBtn.addEventListener('click', bubbleSort);
+sizeSelect.addEventListener('change', () => generateBars(parseInt(sizeSelect.value)));
+speedSlider.addEventListener('input', e => (delay = parseInt(e.target.value)));
+
+// Initialize default bars
+generateBars();
