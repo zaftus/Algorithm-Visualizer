@@ -1,0 +1,76 @@
+/* styles.css */
+/* Core styling for Sorting Algorithm Visualizer */
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f6f7fb;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  text-align: center;
+  padding: 1.5rem;
+  color: #222;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button,
+select {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #4f46e5;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+button:hover,
+select:hover {
+  background-color: #4338ca;
+}
+
+#bars {
+  display: flex;
+  align-items: flex-end;
+  height: 300px;
+  width: 80%;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 5px;
+}
+
+.bar {
+  flex: 1;
+  margin: 0 1px;
+  background: #60a5fa;
+  transition: height 0.2s ease, background 0.2s ease;
+}
+
+.bar.compare {
+  background: #facc15;
+}
+
+.bar.swap {
+  background: #ef4444;
+}
+
+footer {
+  margin-top: 2rem;
+  color: #555;
+  font-size: 0.9rem;
+}
